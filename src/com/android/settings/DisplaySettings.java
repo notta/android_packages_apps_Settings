@@ -39,6 +39,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
@@ -68,6 +69,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_SCREEN_SAVER = "screensaver";
     private static final String KEY_ADAPTIVE_BACKLIGHT = "adaptive_backlight";
     private static final String KEY_ADVANCED_DISPLAY_SETTINGS = "advanced_display_settings";
+    private static final String KEY_ANIMATION_OPTIONS = "category_animation_options";
+    private static final String KEY_POWER_CRT_MODE = "system_power_crt_mode";
     private static final String KEY_WAKE_WHEN_PLUGGED_OR_UNPLUGGED = "wake_when_plugged_or_unplugged";
     private static final String KEY_TAP_TO_WAKE = "double_tap_wake_gesture";
     private static final String KEY_SCREEN_COLOR_SETTINGS = "screencolor_settings";
@@ -77,6 +80,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     private CheckBoxPreference mAccelerometer;
     private FontDialogPreference mFontSizePref;
+    private ListPreference mCrtMode;
     private CheckBoxPreference mNotificationPeek;
     private CheckBoxPreference mWakeWhenPluggedOrUnplugged;
 
@@ -106,6 +110,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         ContentResolver resolver = getActivity().getContentResolver();
 
         addPreferencesFromResource(R.xml.display_settings);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
 
         Resources res = getResources();
 
@@ -145,6 +151,25 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (!isAdaptiveBacklightSupported()) {
             getPreferenceScreen().removePreference(mAdaptiveBacklight);
             mAdaptiveBacklight = null;
+        }
+
+
+        // respect device default configuration
+        // true fades while false animates
+        boolean electronBeamFadesConfig = getResources().getBoolean(
+                com.android.internal.R.bool.config_animateScreenLights);
+        PreferenceCategory animationOptions =
+            (PreferenceCategory) prefSet.findPreference(KEY_ANIMATION_OPTIONS);
+
+        mCrtMode = (ListPreference) prefSet.findPreference(KEY_POWER_CRT_MODE);
+        if (!electronBeamFadesConfig && mCrtMode != null) {
+            int crtMode = Settings.System.getInt(getContentResolver(),
+                    Settings.System.SYSTEM_POWER_CRT_MODE, 1);
+            mCrtMode.setValue(String.valueOf(crtMode));
+            mCrtMode.setSummary(mCrtMode.getEntry());
+            mCrtMode.setOnPreferenceChangeListener(this);
+        } else if (animationOptions != null) {
+            prefSet.removePreference(animationOptions);
         }
 
         mTapToWake = (CheckBoxPreference) findPreference(KEY_TAP_TO_WAKE);
@@ -394,7 +419,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
-    @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
         if (KEY_SCREEN_TIMEOUT.equals(key)) {
@@ -409,7 +433,14 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (KEY_FONT_SIZE.equals(key)) {
             writeFontSizePreference(objValue);
         }
-
+        if (KEY_POWER_CRT_MODE.equals(key)) {
+            int value = Integer.parseInt((String) objValue);
+            int index = mCrtMode.findIndexOfValue((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.SYSTEM_POWER_CRT_MODE,
+                    value);
+            mCrtMode.setSummary(mCrtMode.getEntries()[index]);
+        }
         return true;
     }
 

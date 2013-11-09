@@ -31,6 +31,15 @@
     <string name="notification_peek_title">Notification peek</string>
     <string name="notification_peek_summary">Show latest notification after picking up your device</string>
 
+    <!-- Display : CRT Animation options -->
+    <string name="display_category_animation_options_title">Animation options</string>
+    <string name="system_power_crt_mode_title">CRT animation</string>
+    <string name="system_power_crt_mode_dialog_title">CRT animation</string>
+    <string name="system_power_crt_mode_off">Don\'t show</string>
+    <string name="system_power_crt_mode_horizontal">Collapse horizontal</string>
+    <string name="system_power_crt_mode_vertical">Collapse vertical</string>
+    <string name="system_power_crt_mode_both">Collapse orientation dependent</string>
+
     <!--Notification LED category header-->
     <string name="notification_led_category_title">Notification LED</string>
     <string name="default_string">Default</string>

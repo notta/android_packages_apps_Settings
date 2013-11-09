@@ -98,6 +98,15 @@
         android:summary="@string/status_bar_double_tap_to_sleep_summary"
         android:defaultValue="false" />
 
+        <Preference
+	        android:key="advanced_settings"
+	        android:title="@string/advanced_settings_title" >
+	           <intent
+	                android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
+	                android:targetPackage="com.cyanogenmod.settings.device"
+	                android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
+	    </Preference>
+
         <CheckBoxPreference
             android:key="double_tap_wake_gesture"
             android:title="@string/double_tap_to_wake_title"
@@ -123,4 +132,18 @@
                 android:key="battery_light"
                 android:title="@string/battery_light_title"
                 android:fragment="com.android.settings.notificationlight.BatteryLightSettings" />
+
+        <PreferenceCategory
+                android:key="category_animation_options"
+                android:title="@string/display_category_animation_options_title" >
+
+                <ListPreference
+                    android:key="system_power_crt_mode"
+                    android:dialogTitle="@string/system_power_crt_mode_dialog_title"
+                    android:title="@string/system_power_crt_mode_title"
+                    android:entries="@array/entries_system_power_crt_mode"
+                    android:entryValues="@array/values_system_power_crt_mode" />
+
+        </PreferenceCategory>
+
 </PreferenceScreen>
