@@ -182,7 +182,7 @@ public class PowerUsageSummary extends PreferenceFragment {
         batteryStyle.setGroupCheckable(1, true, true);
 
         MenuItem batteryIcon = batteryStyle.getItem();
-        batteryIcon.setIcon(R.drawable.ic_action_battery_status)
+        batteryIcon.setIcon(R.drawable.ic_settings_battery)
                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         String helpUrl;
