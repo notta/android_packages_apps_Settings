@@ -16,6 +16,44 @@
    limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Clock -->
+    <string name="status_bar_clock_options">Visibility options</string>
+    <string name="status_bar_clock_title">Clock and date style</string>
+    <string name="clock_title_enable">Alignment</string>
+    <string name="clock_enabled">Enabled</string>
+    <string name="clock_disabled">Disabled</string>
+    <string name="clock_color_title">Color</string>
+    <string name="status_bar_clock_style_reset">Reset color</string>
+    <string name="status_bar_show_clock_title">Show clock and date</string>
+    <string name="status_bar_am_pm_title">AM/PM</string>
+    <string name="status_bar_am_pm_info">24-hour clock is enabled</string>
+    <string name="enable_clock_weekday">Day of the week</string>
+    <string name="enable_clock_weekday_summary">Abbreviated day of the week before the time</string>
+    <string name="right_clock">Right clock</string>
+    <string name="center_clock">Center clock</string>
+    <string name="dont_show">Don\'t show</string>
+    <string name="clock_date_display">Date</string>
+    <string name="clock_date_display_summary">Display custom date before the clock</string>
+    <string name="clock_date_style">Date style</string>
+    <string name="clock_date_format">Date format</string>
+    <string name="am_pm_clock_normal">Normal font size</string>
+    <string name="am_pm_clock_small">Small font size</string>
+    <string name="am_pm_clock_none">Don\'t show</string>
+    <string name="clock_date_display_none">Don\'t show</string>
+    <string name="clock_date_display_small">Small font size</string>
+    <string name="clock_date_display_normal">Normal font size</string>
+    <string name="clock_date_style_normal">Normal</string>
+    <string name="clock_date_style_lowercase">Lowercase</string>
+    <string name="clock_date_style_uppercase">Uppercase</string>
+
+    <!-- Display : CRT Animation options -->
+    <string name="display_category_animation_options_title">Animation options</string>
+    <string name="system_power_crt_mode_title">CRT animation</string>
+    <string name="system_power_crt_mode_dialog_title">CRT animation</string>
+    <string name="system_power_crt_mode_off">Don\'t show</string>
+    <string name="system_power_crt_mode_horizontal">Collapse horizontal</string>
+    <string name="system_power_crt_mode_vertical">Collapse vertical</string>
+    <string name="system_power_crt_mode_both">Collapse orientation dependent</string>
 
     <!-- Custom Carrier Label -->
     <string name="notification_carrier_label_title">Carrier label</string>
@@ -49,15 +87,6 @@
     <!--Notification peek-->
     <string name="notification_peek_title">Notification peek</string>
     <string name="notification_peek_summary">Show latest notification after picking up your device</string>
-
-    <!-- Display : CRT Animation options -->
-    <string name="display_category_animation_options_title">Animation options</string>
-    <string name="system_power_crt_mode_title">CRT animation</string>
-    <string name="system_power_crt_mode_dialog_title">CRT animation</string>
-    <string name="system_power_crt_mode_off">Don\'t show</string>
-    <string name="system_power_crt_mode_horizontal">Collapse horizontal</string>
-    <string name="system_power_crt_mode_vertical">Collapse vertical</string>
-    <string name="system_power_crt_mode_both">Collapse orientation dependent</string>
 
     <!--Notification LED category header-->
     <string name="notification_led_category_title">Notification LED</string>
