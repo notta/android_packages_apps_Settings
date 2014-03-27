@@ -73,6 +73,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_OWNER_INFO_SETTINGS = "owner_info_settings";
     private static final String KEY_ENABLE_WIDGETS = "keyguard_enable_widgets";
     private static final String KEY_SEE_THROUGH = "see_through";
+    private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
 
     private static final int SET_OR_CHANGE_LOCK_METHOD_REQUEST = 123;
     private static final int CONFIRM_EXISTING_FOR_BIOMETRIC_WEAK_IMPROVE_REQUEST = 124;
@@ -143,6 +144,9 @@ public class SecuritySettings extends RestrictedSettingsFragment
         }
         addPreferencesFromResource(R.xml.security_settings);
         root = getPreferenceScreen();
+
+        PreferenceGroup securityCategory = (PreferenceGroup)
+                root.findPreference(KEY_SECURITY_CATEGORY);
 
         // Add options for lock/unlock screen
         int resid = 0;
@@ -220,6 +224,11 @@ public class SecuritySettings extends RestrictedSettingsFragment
                     Settings.System.LOCKSCREEN_SEE_THROUGH, 0) == 1);
         }
 
+        // Remove lockscreen button actions if device doesn't have hardware keys
+        if (!hasButtons() && securityCategory != null) {
+            securityCategory.removePreference(root.findPreference(KEY_LOCKSCREEN_BUTTONS));
+        }
+
         // biometric weak liveliness
         mBiometricWeakLiveliness =
                 (CheckBoxPreference) root.findPreference(KEY_BIOMETRIC_WEAK_LIVELINESS);
@@ -235,8 +244,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
         if (resid == R.xml.security_settings_biometric_weak &&
                 mLockPatternUtils.getKeyguardStoredPasswordQuality() !=
                 DevicePolicyManager.PASSWORD_QUALITY_SOMETHING) {
-            PreferenceGroup securityCategory = (PreferenceGroup)
-                    root.findPreference(KEY_SECURITY_CATEGORY);
             if (securityCategory != null && mVisiblePattern != null) {
                 securityCategory.removePreference(root.findPreference(KEY_VISIBLE_PATTERN));
             }
@@ -291,8 +298,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             if (ActivityManager.isLowRamDeviceStatic()
                     || mLockPatternUtils.isLockScreenDisabled()) {
                 // Widgets take a lot of RAM, so disable them on low-memory devices
-                PreferenceGroup securityCategory
-                        = (PreferenceGroup) root.findPreference(KEY_SECURITY_CATEGORY);
                 if (securityCategory != null) {
                     securityCategory.removePreference(root.findPreference(KEY_ENABLE_WIDGETS));
                     mEnableKeyguardWidgets = null;
@@ -313,8 +318,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
         mMaximizeKeyguardWidgets = (CheckBoxPreference) root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS);
         if (mMaximizeKeyguardWidgets != null) {
             if (isTablet()) {
-                PreferenceGroup securityCategory
-                        = (PreferenceGroup) root.findPreference(KEY_SECURITY_CATEGORY);
                 if (securityCategory != null) {
                     securityCategory.removePreference(root.findPreference(LOCKSCREEN_MAXIMIZE_WIDGETS));
                     mMaximizeKeyguardWidgets = null;
@@ -733,5 +736,14 @@ public class SecuritySettings extends RestrictedSettingsFragment
     return (getActivity().getApplicationContext().getResources().getConfiguration().screenLayout
             & Configuration.SCREENLAYOUT_SIZE_MASK)
             >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    /**
+     * Checks if the device has hardware buttons.
+     * @return hasButtons
+     */
+    public boolean hasButtons() {
+        return (getResources().getInteger(
+                com.android.internal.R.integer.config_deviceHardwareKeys) > 0);
     }
 }

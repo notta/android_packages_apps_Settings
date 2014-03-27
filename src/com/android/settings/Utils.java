@@ -696,6 +696,10 @@ public class Utils {
         return getScreenType(context) == DEVICE_TABLET;
     }
 
+    public static boolean hasFlash(Context context) {
+        return context.getResources().getBoolean(com.android.internal.R.bool.config_device_has_camera_flash);
+    }
+
     /* returns whether the device has volume rocker or not. */
     public static boolean hasVolumeRocker(Context context) {
         return context.getResources().getBoolean(R.bool.has_volume_rocker);
