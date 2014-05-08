@@ -72,9 +72,7 @@ public class BatteryLightSettings extends SettingsPreferenceFragment implements
             prefSet.removePreference(prefSet.findPreference("colors_list"));
         }
         mEnabledPref = (CheckBoxPreference)
-                findPreference(BATTERY_LIGHT_ENABLED);
-        mEnabledPref.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.BATTERY_LIGHT_ENABLED, 0) == 1);
+                findPreference(Settings.System.BATTERY_LIGHT_ENABLED);
         mEnabledPref.setOnPreferenceChangeListener(this);
     }
 
