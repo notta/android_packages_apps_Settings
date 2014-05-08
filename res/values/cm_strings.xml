@@ -86,6 +86,11 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="auto_brightness_sensitivity_high">High</string>
     <string name="auto_brightness_sensitivity_veryhigh">Very high</string>
 
+    <!-- Display : Rotation  -->
+    <string name="display_rotation_title">Rotation</string>
+    <string name="display_rotation_disabled">Disabled</string>
+    <string name="display_lockscreen_rotation_title">Rotate lock screen</string>
+
     <!-- Hardware tunables - Vibrator intensity -->
     <string name="vibrator_intensity_title">Vibrator intensity</string>
     <string name="vibrator_warning">Values higher than %1$d are not recommended</string>
